@@ -23,15 +23,15 @@ const config: IConfig = {
       },
     }],
   ],
-  // routes: [
-  //   { path: '/hello', component: './hello' }, // 单独的路由,还只能放到第一行了？？？
-  //   { // 带有模板的路由
-  //     path: '/', component: '../layouts/index', routes: [
-  //       { path: '/', component: './index' },
-  //       // { path: '/hello', component: './hello' },
-  //     ]
-  //   },
-  // ]
+  routes: [
+    { path: '/hello', component: './hello' }, // 单独的路由,还只能放到第一行了？？？
+    { // 带有模板的路由
+      path: '/', component: '../layouts/index', routes: [
+        { path: '/', component: './index' },
+        // { path: '/hello', component: './hello' },
+      ]
+    },
+  ]
 }
 
 export default config;

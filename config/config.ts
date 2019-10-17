@@ -23,15 +23,19 @@ const config: IConfig = {
       },
     }],
   ],
-  // routes: [
-  //   { path: '/hello', component: './hello' }, // 单独的路由,还只能放到第一行了？？？
-  //   { // 带有模板的路由
-  //     path: '/', component: '../layouts/index', routes: [
-  //       { path: '/', component: './index' },
-  //       // { path: '/hello', component: './hello' },
-  //     ]
-  //   },
-  // ]
+  routes: [
+    { // 带有模板的路由, 多级路由必须放到前面，否则匹配不对
+      path: '/admin', component: '../layouts/AdminLayout', routes: [
+        { path: '/admin/user', component: './admin/user' },
+      ]
+    },
+    { // 带有模板的路由
+      path: '/', component: '../layouts/index', routes: [
+        { path: '/', component: './index' },
+      ]
+    },
+
+  ]
 }
 
 export default config;
