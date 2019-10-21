@@ -27,6 +27,8 @@ const config: IConfig = {
     { // 带有模板的路由, 多级路由必须放到前面，否则匹配不对
       path: '/admin', component: '../layouts/AdminLayout', routes: [
         { path: '/admin/user', component: './admin/user' },
+        { path: '/admin/role', component: './admin/role' },
+        { path: '/admin/resource', component: './admin/resource' },
       ]
     },
     { // 带有模板的路由
