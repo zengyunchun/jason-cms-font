@@ -1,4 +1,9 @@
 {
+  "rules": {
+    "no-console": {
+       "severity": "warning",
+    } 
+ },
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -11,7 +16,9 @@
     "baseUrl": ".",
     "strict": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": [
+        "src/*"
+      ]
     },
     "allowSyntheticDefaultImports": true
   }

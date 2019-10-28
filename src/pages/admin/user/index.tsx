@@ -9,9 +9,9 @@ interface UserProps {
 }
 
 // 改用这种写法
-@connect(({user} : ConnectState) => ({
-    list: user.list
-}))
+// @connect(({user} : ConnectState) => ({
+//     list: user.list
+// }))
 class User extends React.Component<UserProps> {
     render() {
         let columns = [
@@ -69,12 +69,12 @@ class User extends React.Component<UserProps> {
 
 }
 
-export default User;
+//export default User;
 
 // 改用这种写法
-// export default connect(({user} : ConnectState) => ({
-//     list: user.list // 注意这里是组件的属性定义
-// }))(User);
+export default connect(({user} : ConnectState) => ({
+    list: user.list // 注意这里是组件的属性定义
+}))(User);
 
 
 
