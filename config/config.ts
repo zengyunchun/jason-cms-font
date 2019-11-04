@@ -37,7 +37,16 @@ const config: IConfig = {
       ]
     },
 
-  ]
+  ],
+  proxy: {
+    "/api" : {
+        "target" : "http://127.0.0.1:7001", // 目标源
+        "changeOrigin" : true, // 切换来源
+        "pathRewrite": {
+            "/api": ""
+        } // 去掉api
+    }
+},
 }
 
 export default config;
