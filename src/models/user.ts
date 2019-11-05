@@ -1,11 +1,12 @@
 import { Effect, Subscription } from 'dva';
 import { Reducer } from 'redux';
-
 import * as service from "@/services/user"
+
 
 // User模型的定义
 export interface UserModel {
-    userName?: String,
+    id?: number,
+    username?: String,
     password?: String,
     email?: String,
     phone?: String,
@@ -14,8 +15,9 @@ export interface UserModel {
     address?: String
 }
 
+
 export interface ListModel {
-    id: Number,
+    id: number,
     name?: String,
     email?: String,
     gender: Number,
@@ -26,7 +28,10 @@ export interface ListModel {
 export interface UserModelState {
     currentUser?: UserModel,
     list?: Array<ListModel>,
-    editVisible?: boolean 
+    editVisible?: boolean,
+    record: UserModel,
+    selectedRowKeys: Array<string> ,
+    selectedRows? : ListModel
 }
 
 export interface UserListModelState {
@@ -39,7 +44,9 @@ export interface UserModelType {
     state: UserModelState,
     effects: {
         fetch: Effect,
-        add: Effect,
+        store: Effect,
+        del: Effect,
+        delAll: Effect
     },
     subscriptions: { setup: Subscription };
     reducers: {
@@ -52,7 +59,11 @@ const UserModel: UserModelType = {
     state: {
         currentUser: {},
         list: [],
-        editVisible: false
+        editVisible: false,
+        record: {
+            gender:1
+        },
+        selectedRowKeys: [],
     },
     subscriptions: {
         setup({ dispatch, history }) {
@@ -81,11 +92,19 @@ const UserModel: UserModelType = {
                 // }
             }); // actionCreate
         },
-        *add({payload}, {call, put}) {
-            yield call(service.add, payload); // 增加用户
-            yield put({ // 重复派发请求，获取最新数据
-                type: "fetch"
-            })
+        *store({ payload }, { call, put }) {
+            yield call(payload.id ? service.update: service.add, payload); // 增加用户 
+            yield put({ type: "fetch" }); // 重复派发请求，获取最新数据
+            yield put({ type: "save", payload: { editVisible: false } })
+        },
+
+        *del({ payload }, { call, put }) {
+            yield call(service.del, payload); // 增加用户 
+            yield put({ type: "fetch" }); // 重复派发请求，获取最新数据
+        },
+        *delAll({ payload }, { call, put }) {
+            yield call(service.delAll, payload); // 增加用户 
+            yield put({ type: "fetch" }); // 重复派发请求，获取最新数据
         }
     },
     reducers: {
